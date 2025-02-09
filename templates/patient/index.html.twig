@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PatientController!{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+
+    {# read and display all flash messages #}
+
+
+    <div class="container my-5">
+        {% block bandeau %}{% endblock %}
+        {{ form(patientForm) }}
+    </div>
+
+
+</div>
+{% endblock %}

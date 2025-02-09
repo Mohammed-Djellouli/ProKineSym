@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Fiche de Décision {% endblock %}</title>
+    {% block stylesheets %}
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+
+                margin: 0;
+                padding: 20px;
+            }
+            h1 {
+                border: 2px solid black;
+                padding: 15px;
+                border-radius: 30%;
+                display: inline-block;
+                margin-bottom: 20px;
+            }
+            table {
+                width: 100%;
+                border-collapse: separate;
+                border-spacing: 10px; /* Espace entre les cellules */
+                margin-bottom: 20px;
+            }
+            td, th {
+                border: 1px solid black;
+                padding: 15px; /* Ajout de marge interne */
+                vertical-align: top;
+            }
+            .section-title {
+                font-weight: bold;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+            }
+            hr {
+                border: 1px solid white;
+                margin: 30px 0;
+            }
+        </style>
+    {% endblock %}
+</head>
+<body>
+{% block header %}
+<header style="text-align: center; margin-bottom: 30px;">
+    <h1>Fiche de décision kinésithérapique</h1>
+    <table>
+        <tr>
+            <td><strong>N° Dossier :</strong> {{ decisionData.dossier }}</td>
+            <td><strong>Kinésithérapeute :</strong></td>
+            <td><strong>Date :</strong> {{ decisionData.date }}</td>
+        </tr>
+        <tr>
+            <td><strong>Patient :</strong> {{ decisionData.nom }} {{ decisionData.prenom }}</td>
+            <td><strong>Diagnostic :</strong></td>
+        </tr>
+    </table>
+    <hr>
+</header>
+{% endblock %}
+
+{% block main %}
+{% endblock %}
+</body>
+</html>

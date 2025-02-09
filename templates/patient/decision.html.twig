@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Décision Kinésithérapique{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <h1 class="mb-4">Décision Kinésithérapique pour {{ patient.nom }} {{ patient.prenom }}</h1>
+
+        {{ form_start(dicisionForm) }}
+        {{ form_widget(dicisionForm) }}
+        {{ form_end(dicisionForm) }}
+        <a class="btn btn-primary" href="{{ path('app_pdf_decision', {id: patient.id}) }}">Imprimer</a>
+    </div>
+{% endblock %}

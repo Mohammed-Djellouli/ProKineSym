@@ -1,0 +1,98 @@
+{% extends'PdfBase.html.twig' %}
+{% block title %}Bilan Kinésithérapique{% endblock %}
+
+
+{% block main %}
+<main>
+    <table>
+        {% if ficheDecision.inspection is not empty %}
+        <tr>
+            <td colspan="2">
+                <span class="section-title">Inspection</span><br>
+                {{ ficheDecision.inspection }}
+            </td>
+        </tr>
+        {% endif %}
+        {% if ficheDecision.palpation is not empty %}
+        <tr>
+            <td colspan="2">
+                <span class="section-title">Palpation</span><br>
+                {{ ficheDecision.palpation }}
+            </td>
+        </tr>
+        {% endif %}
+        {% if ficheDecision.mensuration is not empty %}
+        <tr>
+            <td colspan="2">
+                <span class="section-title">Mensuration </span><br>
+                {{ ficheDecision.mensuration }}
+            </td>
+        </tr>
+        {% endif %}
+        {% if ficheDecision.bilanAlgique is not empty %}
+        <tr>
+            <td colspan="2">
+                <span class="section-title">Bilan algique</span><br>
+                {{ ficheDecision.bilanAlgique }}
+            </td>
+        </tr>
+        {% endif %}
+        {% if ficheDecision.bilanArticulaire is not empty %}
+        <tr>
+            <td colspan="2">
+                <span class="section-title">Bilan articulaire</span><br>
+                {{ ficheDecision.bilanArticulaire }}
+            </td>
+        </tr>
+        {% endif %}
+        {% if ficheDecision.bilanMusculaire is not empty %}
+        <tr>
+            <td colspan="2">
+                <span class="section-title">Bilan musculaire</span><br>
+                {{ ficheDecision.bilanMusculaire }}
+            </td>
+        </tr>
+        {% endif %}
+        {% if ficheDecision.bilanNeurologique is not empty %}
+        <tr>
+            <td colspan="2">
+                <span class="section-title">Bilan neurologique</span><br>
+                {{ ficheDecision.bilanNeurologique }}
+            </td>
+        </tr>
+        {% endif %}
+        {% if ficheDecision.bilanPsychologique is not empty %}
+        <tr>
+            <td colspan="2">
+                <span class="section-title">Bilan psychologique</span><br>
+                {{ ficheDecision.bilanPsychologique }}
+            </td>
+        </tr>
+        {% endif %}
+        {% if ficheDecision.bilanFonctionnel is not empty %}
+        <tr>
+            <td colspan="2">
+                <span class="section-title">Bilan fonctionnel</span><br>
+                {{ ficheDecision.bilanFonctionnel }}
+            </td>
+        </tr>
+        {% endif %}
+        {% if ficheDecision.testsSpecifiques is not empty %}
+        <tr>
+            <td colspan="2">
+                <span class="section-title">Tests spécifiques</span><br>
+                {{ ficheDecision.testsSpecifiques }}
+            </td>
+        </tr>
+        {% endif %}
+        {% if ficheDecision.remarque is not empty %}
+        <tr>
+            <td colspan="2">
+                <span class="section-title">Remarque </span><br>
+                {{ ficheDecision.remarque }}
+            </td>
+        </tr>
+        {% endif %}
+    </table>
+</main>
+{% endblock %}

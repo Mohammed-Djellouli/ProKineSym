@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Planning{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <h1 class="mb-4">Mon Planning</h1>
+
+        {# Afficher les flash messages #}
+        <div>
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }} mt-3">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+        {# Conteneur du calendrier #}
+        <div id="calendar" style="width: 100%;margin: auto"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            if (!calendarEl) {
+                console.error("L'élément avec l'ID 'calendar' n'existe pas.");
+                return;
+            }
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridWeek',
+                locale: 'fr',
+                selectable: true,
+                selectHelper: true,
+                editable: true, // Permet de déplacer et redimensionner les événements
+                eventResizableFromStart: true, // Permet de redimensionner depuis le début
+                events: {{ events|raw }},
+                customButtons: {
+                    myCustomButton: {
+                        text: 'Ajouter Rendez-vous',
+                        click: function () {
+                            window.location.href = '{{ path('app_planning_new') }}';
+                        }
+                    }
+                },
+                headerToolbar: {
+                    start: 'prev,next today',
+                    center: 'title',
+                    end: 'myCustomButton,timeGridWeek,timeGridDay'
+                },
+                eventContent: function (info) {
+                    // Construire un conteneur HTML avec le titre et la description
+                    let title = document.createElement('div');
+                    title.classList.add('fc-event-title');
+                    title.textContent = info.event.title;
+
+                    let description = document.createElement('div');
+                    description.classList.add('fc-event-description');
+                    description.textContent = info.event.extendedProps.description;
+
+                    // Ajouter les deux éléments dans un conteneur
+                    let arrayOfDomNodes = [title, description];
+                    return { domNodes: arrayOfDomNodes };
+                },
+                eventClick: function (info) {
+                    if (confirm('Voulez-vous vraiment supprimer cet événement ?')) {
+                        let url = '{{ path('app_planning_delete', { id: '__id__' }) }}'.replace('__id__', info.event.id);
+
+                        fetch(url, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                            }
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Erreur lors de la suppression.');
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                info.event.remove(); // Supprime l'événement du calendrier
+                            })
+                            .catch(error => {
+                                alert(error.message);
+                                console.error('Erreur:', error);
+                            });
+                    }
+                },
+
+                eventChange: function (e) {
+                    let url = '{{ path('app_planning_edit', { id: '__id__' }) }}'.replace('__id__', e.event.id);
+                    let data = {
+                        "title": e.event.title,
+                        "start": e.event.start.toISOString(),
+                        "end": e.event.end ? e.event.end.toISOString() : null,
+                        "color": e.event.backgroundColor,
+                        "description": e.event.extendedProps.description ||'' ,
+                    };
+                    console.log('Données envoyées :', JSON.stringify(data));
+                    let xhr = new XMLHttpRequest;
+                    xhr.open('PUT',url,true);
+
+                    // Initialiser la requête avec la méthode HTTP PUT et l'URL
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+                    // Envoyer les données
+                    xhr.send(JSON.stringify(data));
+
+
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+
+{% endblock %}

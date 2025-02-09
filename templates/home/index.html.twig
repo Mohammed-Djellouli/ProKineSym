@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Patients{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <h1 class="mb-4">Mes Patients</h1>
+
+        {% if patients is not empty %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>#</th>
+                    <th>Numéro de Téléphone</th>
+                    <th>Âge</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for patient in patients %}
+                    <tr>
+                        <td>{{ patient.nom }}</td>
+                        <td>{{ patient.prenom }}</td>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ patient.numTel }}</td>
+                        <td>{{ patient.age }}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <a href="{{ path('app_patient_edit', {id: patient.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
+                            <form method="post" action="{{ path('app_patient_delete', { id: patient.id }) }}" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce patient ?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ patient.id) }}">
+                                <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                            </form>
+                            <a href="{{ path('app_patient_bilanKine', {id: patient.id}) }}" class="btn btn-primary btn-sm">Bilan Kinésithérapique</a>
+                            <a href="{{ path('app_patient_decision', {id: patient.id}) }}" class="btn btn-primary btn-sm">Décision Kinésithérapique</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-info">Vous n'avez aucun patient enregistré.</div>
+        {% endif %}
+    </div>
+{% endblock %}

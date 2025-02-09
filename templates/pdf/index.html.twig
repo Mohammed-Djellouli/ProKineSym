@@ -1,0 +1,42 @@
+{% extends 'PdfBase.html.twig' %}
+{% block title %} Fiche de Décision{% endblock %}
+{% block main %}
+<main>
+    <table>
+        <tr>
+            <td colspan="2">
+                <span class="section-title">Prescription</span><br>
+                {{ ficheDecision.prescription }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="section-title">Conclusion des bilans kiné</span><br>
+                {{ ficheDecision.conclusion }}
+            </td>
+            <td>
+                <span class="section-title">Projet du patient</span><br>
+                {{ ficheDecision.projet }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="section-title">Diagnostic kinésithérapique</span><br>
+                {{ ficheDecision.diagnostique }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="section-title">Objectifs</span><br>
+                {{ ficheDecision.objectifs }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="section-title">Traitement</span><br>
+                {{ ficheDecision.traitement }}
+            </td>
+        </tr>
+    </table>
+</main>
+{% endblock %}
