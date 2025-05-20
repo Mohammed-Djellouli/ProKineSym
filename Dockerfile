@@ -23,3 +23,7 @@ RUN composer install --no-dev --optimize-autoloader
 
 # Set DocumentRoot to Symfony public directory
 RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
+
+
+# Run migrations automatically (TEMPORARY)
+RUN php bin/console doctrine:migrations:migrate --no-interaction || true
