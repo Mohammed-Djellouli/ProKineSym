@@ -18,6 +18,9 @@ COPY . .
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Skip auto-scripts like cache:clear to avoid dev-only class errors
+ENV SYMFONY_SKIP_AUTO_RUN=1
+
 # Install PHP dependencies
 RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader
 
